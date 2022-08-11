@@ -20,6 +20,7 @@ def main():
             print(" " + str(count) + ") " + industry)
             count += 1
         count = 1
+        print()
 
     # loop across the list vendors
     for x in vendors:
