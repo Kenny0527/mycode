@@ -11,6 +11,8 @@ matplotlib.use('Agg')
 # sudo apt install python3-tk
 import matplotlib.pyplot as plt
 
+# ----------------------- PARSE CSV DATA ------------------------
+
 def parsecsvdata():
     """returns a list. [0] is LAN and [1] WAN data"""
     summary = [] # list that will contain [(LAN), (WAN)]
@@ -24,6 +26,8 @@ def parsecsvdata():
             rowdat = (int(row[0]), int(row[1]), int(row[2]), int(row[3]))
             summary.append(rowdat) # add dict to list
     return summary
+
+# ------------------------- PLOT GRAPHS --------------------------
 
 def plotgraphs(summary):
     N = 4
@@ -40,11 +44,11 @@ def plotgraphs(summary):
     p2 = plt.bar(ind, wanMeans, width, bottom=localnetMeans)
 
     # Describe the table metadata
-    plt.ylabel("Length of Outage (mins)")
-    plt.title("2018 Network Summary")
-    plt.xticks(ind, ("Q1", "Q2", "Q3", "Q4"))
+    plt.ylabel("Tima after Lightning Strike (sec)")
+    plt.title("2022 Florida Lightning Summary")
+    plt.xticks(ind, ("L1", "L2", "L3", "L4"))
     plt.yticks(np.arange(0, 81, 10))
-    plt.legend((p1[0], p2[0]), ("LAN", "WAN"))
+    plt.legend((p1[0], p2[0]), ("DANGER ZONE", "SAFE ZONE"))
     return plt
 
 # ------------------------- MAIN -------------------------------
@@ -58,6 +62,8 @@ def main():
     # Save to "~/static"
     plt.savefig("/home/student/static/2018summaryv2.png")       
     print("Graph created.")
+
+# ------------------- RUN MAIN FUNCTION -------------------------
 
 if __name__ == "__main__":
     main()
