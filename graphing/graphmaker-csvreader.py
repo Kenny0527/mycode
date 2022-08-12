@@ -25,10 +25,8 @@ def parsecsvdata():
             summary.append(rowdat) # add dict to list
     return summary
 
-def main():
+def plotgraphs(summary):
     N = 4
-    ## grab our data
-    summary = parsecsvdata() # grab our data
     localnetMeans = summary[0] # LAN data
     wanMeans = summary[1] # WAN data
 
@@ -47,7 +45,14 @@ def main():
     plt.xticks(ind, ("Q1", "Q2", "Q3", "Q4"))
     plt.yticks(np.arange(0, 81, 10))
     plt.legend((p1[0], p2[0]), ("LAN", "WAN"))
+    return plt
 
+# ------------------------- MAIN -------------------------------
+
+def main():
+    ## grab our data
+    summary = parsecsvdata() # grab our data
+    plt = plotgraphs(summary)
     # SAVE the graph locally
     plt.savefig("/home/student/mycode/graphing/2018summaryv2.png")
     # Save to "~/static"
