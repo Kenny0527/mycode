@@ -58,9 +58,9 @@ def main():
     summary = parsecsvdata() # grab our data
     plt = plotgraphs(summary)
     # SAVE the graph locally
-    plt.savefig("/home/student/mycode/graphing/2018summaryv2.png")
+    plt.savefig("/home/student/mycode/graphing/2022summaryv2.png")
     # Save to "~/static"
-    plt.savefig("/home/student/static/2018summaryv2.png")       
+    plt.savefig("/home/student/static/2022summaryv2.png")       
     print("Graph created.")
 
 # ------------------- RUN MAIN FUNCTION -------------------------
