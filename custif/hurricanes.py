@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""Alta3 Research | controlling pytest behaviors with conftest.py"""
+
 # this function is to select hurricane category
 def hurricaneCategory(hurricanews):
     print()
@@ -45,6 +47,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
