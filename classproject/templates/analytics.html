@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Dashboard using HTML CSS and JavaScript (Analytics) </title>
+    <!--Google Material Icons-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}" />
+  </head>
+  <body>
+    <div class="container">
+      <!-------------------------- START OF SIDEBAR MENU ------------------------->
+      <aside>
+        <div class="top">
+          <!--Section - top of sidebar menu, logo -->
+          <div class="logo">
+            <img src="../Resources/malcmar logo.jpg" alt="logo" />
+            <h2><span class="primary">MALCMAR</span></h2>
+          </div>
+          <!--Section - Close Button, top of side bar menu-->
+          <div class="close" id="close_btn">
+            <span class="material-icons-sharp"> close </span>
+          </div>
+        </div>
+        <div class="sidebar">
+          <a href="#">
+            <span class="material-icons-sharp"> grid_view </span>
+            <h3>Dashboard</h3>
+          </a>
+          <a href="/analytics.html">
+            <span class="material-icons-sharp"> insights </span>
+            <h3>Analytics</h3>
+          </a>
+          <a href="#">
+            <span class="material-icons-sharp">inventory</span>
+            <h3>Products</h3>
+          </a>
+          <a href="#">
+            <span class="material-icons-sharp"> logout </span>
+            <h3>Logout</h3>
+          </a>
+        </div>
+      </aside>
+      <!-------------------------- END OF SIDEBAR MENU --------------------------->
+      <!------------------------------ MAIN SECTION ------------------------------>
+      <main>
+        <h1>Dashboard</h1>
+        <div class="date">
+          <input type="date" name="" id="" />
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
