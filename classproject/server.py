@@ -6,7 +6,9 @@ server = Flask(__name__)
 
 @server.route("/")
 def index():
-
+    advertsing = Advertising()
+    advertsing.readXlsx_to_dataFrame()
+    
     return render_template("index.html")
 
 
