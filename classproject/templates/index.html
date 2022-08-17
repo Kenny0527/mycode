@@ -118,21 +118,15 @@
         </div>
         <div class="campaign-overview">
           <h2>Campaign Overview</h2>
-          <table class="table table-hover table-bordered">
-            {% for row in index[2]['Campaign Name'].iteritems() %}
-              <tr>
-                {% for cell in row %}
-                  <td>{{ cell }}</td>
-                {% endfor %}
-              </tr>
-            {% endfor %}
-            {% for row in index[2]['Impressions'].iteritems() %}
-              <tr>
-                {% for cell in row %}
-                  <td>{{ cell }}</td>
-                {% endfor %}
-              </tr>
-            {% endfor %}
+          <table class="table table-hover">
+            <h1>
+              {% for table in tables %}
+              <h2>
+                {{titles[loop.index]}}
+              </h2>
+              {{table | safe}}
+              {% endfor %}
+            </h1> 
           </table>
         </div>
       </main>

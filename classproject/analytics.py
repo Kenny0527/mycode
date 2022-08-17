@@ -1,8 +1,8 @@
 import pyexcel
 import os
 import pandas as pd
-# Class called advertising
-class Advertising:
+# Class called Analytics
+class Analytics:
     def __init__(self):
         # directory with the advertising database
         self.directory = 'static/db'
@@ -11,14 +11,15 @@ class Advertising:
         self.advertising_data = []
         # initialize advertising_data from the xlsx files
         self.readXlsx_to_dataFrame()
+        print(self.advertising_data)
 
-# ----------------------- INIT TOTAL SPEND ----------------------------
+# ----------------- INIT KW W/ Most Sales Total ----------------------------
         # total spend for all keywords
         self.totalSpend = 0
         # initialize totalSpend with all spend from dataFrame
         self.setTotalSpend()
 
-# ----------------------- INIT TOTAL SALES ----------------------------
+# ----------------- INIT KW W/ Most Spend Total ----------------------------
         # total sales for all keywords
         self.totalSales = 0
         # initialize totalSales with all sales from dataFrame
@@ -33,13 +34,10 @@ class Advertising:
         self.advertising_data = ads
         return None
     
-    # calculate the total spend at init from dataFrame
-    def setTotalSpend(self):
-        sumspend = 0
-        for data_set in self.advertising_data:
-            seriesspend = data_set.sum(axis=0, skipna=True)
-            sumspend += float(seriesspend['Spend'])
-        self.totalSpend = sumspend
+    # calculate the total value of the key with highest spend
+    def setKwTotalSpend(self):
+        for table in self.advertising_data:
+            table.str.find('honey', start)
         return None
 
     # method that gets total spend

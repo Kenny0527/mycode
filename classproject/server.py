@@ -13,9 +13,7 @@ def index():
     ads_overview = []
     ads_overview.append(float(advertising.getTotalSpend()).__round__())
     ads_overview.append(float(advertising.getTotalSales()).__round__())
-    ads_overview.append(advertising.getHead())
-    print(str(ads_overview[2]['Start Date'].name))
-    return render_template('index.html', index = ads_overview)
+    return render_template('index.html', index = ads_overview, tables = [advertising.getHead().to_html()], titles=[''])
 
 @app.route("/analytics", methods=['GET'])
 def analytics():
