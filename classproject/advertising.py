@@ -59,3 +59,7 @@ class Advertising:
     # method that gets total sales
     def getTotalSales(self):
         return self.totalSales
+
+    # method to get the head of the dictonary
+    def getHead(self):
+        return self.advertising_data[0].head()

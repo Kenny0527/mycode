@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class="sidebar">
-          <a href="#">
+          <a href="/">
             <span class="material-icons-sharp"> grid_view </span>
             <h3>Dashboard</h3>
           </a>
@@ -60,7 +60,7 @@
             <div class="middle">
               <div class="left">
                 <h3>Total Sales</h3>
-                <h1>$53,122</h1>
+                <h1>${{ index[1] }}</h1>
               </div>
               <div class="progress">
                 <svg>
@@ -79,8 +79,8 @@
             <span class="material-icons-sharp"> bar_chart </span>
             <div class="middle">
               <div class="left">
-                <h3>Total Expenses</h3>
-                <h1>$13,000</h1>
+                <h3>Ads Spend</h3>
+                <h1>${{ index[0] }}</h1>
               </div>
               <div class="progress">
                 <svg>
@@ -99,8 +99,8 @@
             <span class="material-icons-sharp"> stacked_line_chart </span>
             <div class="middle">
               <div class="left">
-                <h3>Total Income</h3>
-                <h1>$15,200</h1>
+                <h3>Revenue</h3>
+                <h1>${{ index[1] - index[0] }}</h1>
               </div>
               <div class="progress">
                 <svg>
@@ -114,6 +114,26 @@
             <small class="text_muted"> Last 24 Hours </small>
           </div>
           <!------------------ END OF INCOME OVERVIEW --------------------->
+          <!-------------------- CAMPAIGNE OVERVIEW ----------------------->
+        </div>
+        <div class="campaign-overview">
+          <h2>Campaign Overview</h2>
+          <table class="table table-hover table-bordered">
+            {% for row in index[2]['Campaign Name'].iteritems() %}
+              <tr>
+                {% for cell in row %}
+                  <td>{{ cell }}</td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+            {% for row in index[2]['Impressions'].iteritems() %}
+              <tr>
+                {% for cell in row %}
+                  <td>{{ cell }}</td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </table>
         </div>
       </main>
     </div>
