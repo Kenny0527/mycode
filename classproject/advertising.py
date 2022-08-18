@@ -1,16 +1,16 @@
 import pyexcel
 import os
+from database import *
 import pandas as pd
 # Class called advertising
 class Advertising:
     def __init__(self):
         # directory with the advertising database
         self.directory = 'static/db'
+
 # ----------------------- INIT DATA DICT -----------------------------
-        # array of dictionaries, advertising data
-        self.advertising_data = []
-        # initialize advertising_data from the xlsx files
-        self.readXlsx_to_dataFrame()
+        # array of dictionaries from database data
+        self.db = Database()
 
 # ----------------------- INIT TOTAL SPEND ----------------------------
         # total spend for all keywords
@@ -23,23 +23,13 @@ class Advertising:
         self.totalSales = 0
         # initialize totalSales with all sales from dataFrame
         self.setTotalSales()
-
-    # read xlsx files into container, xls to dictionary conversion
-    def readXlsx_to_dataFrame(self):
-        ads = []
-        for filename in os.scandir(self.directory):
-            if filename.is_file():
-                ads.append(pd.read_excel(filename)[['Campaign Name', 'Impressions', 'Cost Per Click (CPC)', 'Spend', '7 Day Total Sales ']])
-        self.advertising_data = ads
-        return None
     
     # calculate the total spend at init from dataFrame
     def setTotalSpend(self):
-        sumspend = 0
-        for data_set in self.advertising_data:
-            seriesspend = data_set.sum(axis=0, skipna=True)
-            sumspend += float(seriesspend['Spend'])
-        self.totalSpend = sumspend
+        seriesspend = 0
+        for data_frame in (self.db.getAdvertisingDataFramesList()):
+            seriesspend += float(data_frame['Spend'].sum(axis=0, skipna=True))
+        self.totalSpend = seriesspend
         return None
 
     # method that gets total spend
@@ -49,11 +39,10 @@ class Advertising:
 
     # calculate the total spend at init from dataFrame
     def setTotalSales(self):
-        sumsales = 0
-        for data_set in self.advertising_data:
-            seriessales = data_set.sum(axis=0, skipna=True)
-            sumsales += float(seriessales['7 Day Total Sales '])
-        self.totalSales = sumsales
+        seriessales = 0
+        for data_frame in (self.db.getAdvertisingDataFramesList()):
+            seriessales += float(data_frame['7 Day Total Sales '].sum(axis=0, skipna=True))
+        self.totalSales = seriessales
         return None
 
     # method that gets total sales
@@ -62,4 +51,6 @@ class Advertising:
 
     # method to get the head of the dictonary
     def getHead(self):
-        return self.advertising_data[0].sort_values(by="7 Day Total Sales ", ascending=False).head(6)
+        return self.db.getAdvertisingDataFramesList()[0] \
+            .sort_values(by="7 Day Total Sales ", ascending=False) \
+                .head(10)
