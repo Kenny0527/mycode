@@ -28,8 +28,6 @@ class Analytics:
                 .where(data_frame['Customer Search Term'] \
                     .str.contains('honey')) \
                         .sum())
-            # seriesspend += float(data_frame['Spend'].sum(axis=0, skipna=True))
-
         self.kwTotalSpend = seriesspend
         return None
 
@@ -65,6 +63,6 @@ class Analytics:
     def getKwHeadSearch(self, searchterm):
         return self.db.getAnalyticsDataFramesList()[0] \
             .where(self.db.getAnalyticsDataFramesList()[0]['Customer Search Term'] \
-                .str.contains(searchterm)) \
+                .str.contains(searchterm.lower())) \
                     .sort_values(by="7 Day Total Sales ", ascending=False) \
                         .head(10)

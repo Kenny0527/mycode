@@ -54,3 +54,11 @@ class Advertising:
         return self.db.getAdvertisingDataFramesList()[0] \
             .sort_values(by="7 Day Total Sales ", ascending=False) \
                 .head(10)
+
+    # method to get the head of the dictionary with requested search pattern
+    def getHeadSearch(self, name):
+        return self.db.getAdvertisingDataFramesList()[0] \
+            .where(self.db.getAdvertisingDataFramesList()[0]['Campaign Name'] \
+                .str.contains(name)) \
+                    .sort_values(by="7 Day Total Sales ", ascending=False) \
+                        .head(10)
