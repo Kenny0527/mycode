@@ -1,64 +1,84 @@
-import pyexcel
-import os
+"""
+Author: Kramclam
+This program renders an analytics dashboard with html and used Python \
+    to help transform data from amazon advertising search term xlsx \
+    reports. The Advertising class is used for manipulating \
+    the data frame and rendering it to index.html file. \
+"""
 from database import *
-import pandas as pd
-# Class called advertising
 class Advertising:
+    """Initialization method. Declares fields and calls setter methods."""
     def __init__(self):
-        # directory with the advertising database
-        self.directory = 'static/db'
-
-# ----------------------- INIT DATA DICT -----------------------------
+# ----------------------- INIT DATABASE CLASS -------------------------
         # array of dictionaries from database data
-        self.db = Database()
+        self.data_base = Database()
 
 # ----------------------- INIT TOTAL SPEND ----------------------------
         # total spend for all keywords
-        self.totalSpend = 0
+        self.total_spend = 0
         # initialize totalSpend with all spend from dataFrame
-        self.setTotalSpend()
+        self.set_total_spend()
 
 # ----------------------- INIT TOTAL SALES ----------------------------
         # total sales for all keywords
-        self.totalSales = 0
+        self.total_sales = 0
         # initialize totalSales with all sales from dataFrame
-        self.setTotalSales()
-    
-    # calculate the total spend at init from dataFrame
-    def setTotalSpend(self):
+        self.set_total_sales()
+
+    def set_total_spend(self):
+        """This method call is to calculate and set the total spend."""
         seriesspend = 0
-        for data_frame in (self.db.getAdvertisingDataFramesList()):
-            seriesspend += float(data_frame['Spend'].sum(axis=0, skipna=True))
-        self.totalSpend = seriesspend
-        return None
+        try:
+            for data_frame in (self.data_base.get_advertising_dataframe_list()):
+                seriesspend += float(data_frame['Spend'].sum(axis=0, skipna=True))
+            self.total_spend = seriesspend
+        except KeyError as err:
+            print(err.__traceback__ + "Error with file column names")
+        except RuntimeError as err:
+            print(err.__traceback__ + "Error with handling the data")
 
-    # method that gets total spend
-    def getTotalSpend(self):
-        return self.totalSpend
+    def get_total_spend(self):
+        """method that gets total spend"""
+        return self.total_spend
 
-
-    # calculate the total spend at init from dataFrame
-    def setTotalSales(self):
+    def set_total_sales(self):
+        """method calculate the total sales and sets at init from dataFrame"""
         seriessales = 0
-        for data_frame in (self.db.getAdvertisingDataFramesList()):
-            seriessales += float(data_frame['7 Day Total Sales '].sum(axis=0, skipna=True))
-        self.totalSales = seriessales
+        try:
+            for data_frame in (self.data_base.get_advertising_dataframe_list()):
+                seriessales += float(data_frame['7 Day Total Sales '].sum(axis=0, skipna=True))
+            self.total_sales = seriessales
+        except KeyError as err:
+            print(err.__traceback__ + "Error with file column names")
+        except RuntimeError as err:
+            print(err.__traceback__ + "Error with handling the data")
+
+    def get_total_sales(self):
+        """method that gets total sales"""
+        return self.total_sales
+
+    def get_head(self):
+        """method to get the sorted head of the data frame"""
+        try:
+            return self.data_base.get_advertising_dataframe_list()[0] \
+                .sort_values(by="7 Day Total Sales ", ascending=False) \
+                    .head(10)
+        except KeyError as err:
+            print(err.__traceback__ + "Error with file column names")
+        except RuntimeError as err:
+            print(err.__traceback__ + "Error with handling the data")
         return None
 
-    # method that gets total sales
-    def getTotalSales(self):
-        return self.totalSales
-
-    # method to get the head of the dictonary
-    def getHead(self):
-        return self.db.getAdvertisingDataFramesList()[0] \
-            .sort_values(by="7 Day Total Sales ", ascending=False) \
-                .head(10)
-
-    # method to get the head of the dictionary with requested search pattern
-    def getHeadSearch(self, name):
-        return self.db.getAdvertisingDataFramesList()[0] \
-            .where(self.db.getAdvertisingDataFramesList()[0]['Campaign Name'] \
-                .str.contains(name)) \
-                    .sort_values(by="7 Day Total Sales ", ascending=False) \
-                        .head(10)
+    def get_head_search(self, name):
+        """method to get the head of the dictionary with requested search pattern"""
+        try:
+            return self.data_base.get_advertising_dataframe_list()[0] \
+                .where(self.data_base.get_advertising_dataframe_list()[0]['Campaign Name'] \
+                    .str.contains(name)) \
+                        .sort_values(by="7 Day Total Sales ", ascending=False) \
+                            .head(10)
+        except KeyError as err:
+            print(err.__traceback__ + "Error with file column names")
+        except RuntimeError as err:
+            print(err.__traceback__ + "Error with handling the data")
+        return None
